@@ -1,0 +1,5 @@
+This is a collection of half-baked GBA Fire Emblem bugfix patches.
+
+For the most part, these are in-place patches in FEBuilderGBA switch format, so they fit into the same space as the original code and can be toggled on and off harmlessly.
+
+If you need to make changes, I strongly encourage you to take a disassembler to the code yourself rather than trust my assembly source, if it even exists.
