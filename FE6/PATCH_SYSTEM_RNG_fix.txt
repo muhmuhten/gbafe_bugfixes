@@ -1,0 +1,20 @@
+NAME=RNG range fix
+INFO=The FE6 RNG is known to have a bug where it can roll 100s out of a range from 0 to 99 inclusive.\r\nThis is an inlined special case of a more general bug where the RNG maps 0-65535 to [0,n) by dividing by 65535/n, which rarely allows hard mode bonuses and arena enemy levels to be rolled higher than should be possible.\r\nThis patch changes the mapping to ((random * n) >> 16), similar to FE7/8.\r\n\r\nSee also: https://feuniverse.us/t/fire-emblem6-rng-data/6505/6\r\nThis is a more complete fix which also adjusts the arbitrary-range generators.
+
+TYPE=SWITCH
+COMBO=Default|OFF|fix|ONN
+
+OFF:0xDE0=0x80 0xB5 0x6F 0x46
+ONN:0xDE0=0x64 0x20 0x0F 0xE0
+//	mov	r0,#100
+//	bl	0xe08
+
+OFF:0xE08=0x90 0xB5 0x81 0xB0 0x6F 0x46 0x38 0x60 0xFF 0xF7 0xD6 0xFE 0x04 0x1C 0x05 0x48
+ONN:0xE08=0x01 0xB5 0xFF 0xF7 0xD9 0xFE 0x02 0xBC 0x48 0x43 0x00 0x14 0x02 0xBC 0x08 0x47
+//	push	{r0,lr}
+//	bl	0xbc0
+//	pop	{r1}
+//	mul	r0,r1
+//	asr	r0,#16
+//	pop	{r1}
+//	bx	r1
