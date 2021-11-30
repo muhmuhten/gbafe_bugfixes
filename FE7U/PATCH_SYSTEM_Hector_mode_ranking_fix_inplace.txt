@@ -1,0 +1,19 @@
+NAME=Hector mode ranking fix
+INFO=Normally, the game reads Eliwood mode rankings for all modes, and Hector mode rankings data goes unused.\r\n\r\nSee also: https://feuniverse.us/t/need-help-with-fe-gba-hacking-fe8-fe7-seems-to-be-solved/6370/8\r\nThis is a smaller alternative fix implementation which fits in the original code's space.
+
+TYPE=SWITCH
+COMBO=Default|OFF|fix|ONN
+
+OFF:0x315EA=0x40 0x20 0x09 0x7D 0x08 0x40 0x00 0x06 0x00 0x0E 0x40 0x42 0xC0 0x0F
+ONN:0x315EA=0x08 0x7D 0xC9 0x7E 0x40 0x06 0xC0 0x0F 0x03 0x29 0x00 0xDB 0x02 0x30
+
+//GetSomethingRelatedToCurrentDifficulty+2 => 0x315ea
+//	;; Basic logic: return 0-3 for LNM/ENM, LHM/EHM, HNM, HHM respectively,
+//	;; i.e. Hard mode bit + 2 if Hector mode.
+//	ldrb	r0,[r1,#20] @ bit 6: Normal/Hard mode
+//	ldrb	r1,[r1,#27] @ Lyn/Eliwood/Hector mode
+//	lsl	r0,#25
+//	lsr	r0,#31
+//	cmp	r1,#3
+//	blt	.+4
+//	add	r0,#2
