@@ -1,0 +1,8 @@
+NAME=Target priority friend zone hole fix
+INFO=The target priority calculation for nearby units has a blind spot at (-1, -2) and checks (-3, +1) instead. This is assumed to be some kind of typo.\r\n\r\nSee also: https://feuniverse.us/t/fe7-the-official-ai-documentation-thread/348/108
+
+TYPE=SWITCH
+COMBO=Default|OFF|fix|ONN
+
+OFF:0x5C9808=0xFD 0x01 0x00
+ONN:0x5C9808=0xFF 0xFE 0x01
