@@ -1,0 +1,11 @@
+NAME=Map 3 range tiles out of bounds fix
+INFO=Fixes a minor AI bug where checking for a unit at (-1, -2) or (0, -3) can read data outside the unit map.\r\nNormally, the game allocates 2 extra rows of space before and after the map area (+ 2 extra cells at the end of each row, shared with the next row), so that it can avoid bounds-checking accesses up to 2 tile outside the map area in any direction, but this is clearly not sufficient for unguarded 3 range checks.\r\nThis patch allocates an extra row and column of dead space in each direction. This reduces the maximum map size by 2 rows and 1 column, but the largest vanilla GBAFE map (FE6 ch24, 1768→1890 tiles allocated) still fits in the 1976-tile buffer.
+
+TYPE=SWITCH
+COMBO=Default|OFF|fix|ONN
+
+OFF:0x19078=0x02 0x36 0x04
+ONN:0x19078=0x03 0x36 0x06
+
+OFF:0x1909A=0x08
+ONN:0x1909A=0x0C
