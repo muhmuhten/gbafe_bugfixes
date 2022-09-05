@@ -1,4 +1,6 @@
-This is a collection of half-baked GBA Fire Emblem bugfix patches.
+=head1 GBA FE "bugfix" collection
+
+This is a collection of half-baked GBA Fire Emblem bugfix patches, plus some that change things that aren't actually bugs.
 
 For the most part, these are in-place patches in FEBuilderGBA switch format, so they fit into the same space as the original code and can be toggled on and off harmlessly.
 
